@@ -15,7 +15,7 @@ public class Result {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private int result_id;
+    private Integer result_id;
     private String resultType;
     private String resultValue;
 
