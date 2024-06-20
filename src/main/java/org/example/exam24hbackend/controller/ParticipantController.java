@@ -18,7 +18,6 @@ public class ParticipantController {
     @Autowired
     ParticipantService participantService;
 
-
     //******* GET ALL PARTICIPANTS *******\\
     @GetMapping("")
     public List<ParticipantDTO> getAllParticipants() {
