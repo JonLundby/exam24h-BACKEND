@@ -1,8 +1,11 @@
 package org.example.exam24hbackend.service;
 
+import org.example.exam24hbackend.dto.DisciplineDTO;
 import org.example.exam24hbackend.dto.ParticipantDTO;
+import org.example.exam24hbackend.entity.Discipline;
 import org.example.exam24hbackend.entity.Participant;
 import org.example.exam24hbackend.repository.ParticipantRepository;
+import org.example.exam24hbackend.repository.ResultRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -17,6 +20,9 @@ public class ParticipantService {
 
     @Autowired
     private ParticipantRepository participantRepository;
+
+    @Autowired
+    private ResultRepository resultRepository;
 
     //******* GET ALL PARTICIPANTS *******\\
     public List<ParticipantDTO> getAllParticipants() {
@@ -70,6 +76,17 @@ public class ParticipantService {
         dto.setAge(participant.getAge());
         dto.setGender(participant.getGender());
         dto.setClub(participant.getClub());
+        dto.setDisciplines(participant.getDisciplines().stream()
+                .map(this::converToDisciplineDTO)
+                .collect(Collectors.toSet()));
+        return dto;
+    }
+
+    private DisciplineDTO converToDisciplineDTO(Discipline discipline) {
+        DisciplineDTO dto = new DisciplineDTO();
+        dto.setResultType(discipline.getResultType());
+        dto.setName(discipline.getName());
+
         return dto;
     }
 

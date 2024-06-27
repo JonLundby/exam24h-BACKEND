@@ -5,6 +5,7 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
+import java.util.HashSet;
 import java.util.Set;
 
 @Getter
@@ -23,12 +24,12 @@ public class Participant {
     private String club;
 
     @OneToMany(mappedBy = "participant", cascade = CascadeType.ALL)
-    private Set<Result> results;
+    private Set<Result> results = new HashSet<>();
 
     @ManyToMany
     @JoinTable(
             name = "participant_discipline",
             joinColumns = @JoinColumn(name = "participant_id"),
             inverseJoinColumns = @JoinColumn(name = "discipline_id"))
-    private Set<Discipline> disciplines;
+    private Set<Discipline> disciplines = new HashSet<>();
 }

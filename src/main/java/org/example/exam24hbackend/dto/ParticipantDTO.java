@@ -17,6 +17,6 @@ public class ParticipantDTO {
     private int age;
     private String gender;
     private String club;
-    private Set<Result> results;
-    private Set<Discipline> disciplines;
+//    private Set<Result> results;
+    private Set<DisciplineDTO> disciplines;
 }

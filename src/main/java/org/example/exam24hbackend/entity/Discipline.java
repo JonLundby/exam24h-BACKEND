@@ -7,6 +7,7 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
+import java.util.HashSet;
 import java.util.Set;
 
 @Getter
@@ -23,8 +24,8 @@ public class Discipline {
     private String resultType;
 
     @OneToMany(mappedBy = "discipline")
-    private Set<Result> results;
+    private Set<Result> results = new HashSet<>();
 
     @ManyToMany(mappedBy = "disciplines")
-    private Set<Participant> participants;
+    private Set<Participant> participants = new HashSet<>();
 }
