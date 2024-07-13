@@ -5,7 +5,6 @@ import org.example.exam24hbackend.dto.ParticipantDTO;
 import org.example.exam24hbackend.entity.Discipline;
 import org.example.exam24hbackend.entity.Participant;
 import org.example.exam24hbackend.repository.ParticipantRepository;
-import org.example.exam24hbackend.repository.ResultRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -20,9 +19,6 @@ public class ParticipantService {
 
     @Autowired
     private ParticipantRepository participantRepository;
-
-    @Autowired
-    private ResultRepository resultRepository;
 
     //******* GET ALL PARTICIPANTS *******\\
     public List<ParticipantDTO> getAllParticipants() {
@@ -57,6 +53,10 @@ public class ParticipantService {
         participant.setAge(participantToUpdate.getAge());
         participant.setGender(participantToUpdate.getGender());
         participant.setClub(participantToUpdate.getClub());
+        participant.setDisciplines(participantToUpdate.getDisciplines()
+                .stream()
+                .map(this::convertDisciplineDTOEntity)
+                .collect(Collectors.toSet()));
         participantRepository.save(participant);
         return convertToDTO(participant);
     }
@@ -69,6 +69,8 @@ public class ParticipantService {
         return new ResponseEntity<>(HttpStatus.NO_CONTENT);
     }
 
+
+    //******* DTO CONVERSION *******\\
     private ParticipantDTO convertToDTO(Participant participant) {
         ParticipantDTO dto = new ParticipantDTO();
         dto.setId(participant.getId());
@@ -77,13 +79,14 @@ public class ParticipantService {
         dto.setGender(participant.getGender());
         dto.setClub(participant.getClub());
         dto.setDisciplines(participant.getDisciplines().stream()
-                .map(this::converToDisciplineDTO)
+                .map(this::convertToDisciplineDTO)
                 .collect(Collectors.toSet()));
         return dto;
     }
 
-    private DisciplineDTO converToDisciplineDTO(Discipline discipline) {
+    private DisciplineDTO convertToDisciplineDTO(Discipline discipline) {
         DisciplineDTO dto = new DisciplineDTO();
+        dto.setId(discipline.getId());
         dto.setResultType(discipline.getResultType());
         dto.setName(discipline.getName());
 
@@ -98,5 +101,13 @@ public class ParticipantService {
         participant.setGender(dto.getGender());
         participant.setClub(dto.getClub());
         return participant;
+    }
+
+    private Discipline convertDisciplineDTOEntity(DisciplineDTO dto) {
+        Discipline discipline = new Discipline();
+        discipline.setId(dto.getId());
+        discipline.setName(dto.getName());
+        discipline.setResultType(dto.getResultType());
+        return discipline;
     }
 }

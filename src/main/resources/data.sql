@@ -8,7 +8,7 @@ USE exam24h;
 -- DISCIPLINES
     INSERT INTO disciplines (name, result_type) VALUES ("100m-løb", "time");
     INSERT INTO disciplines (name, result_type) VALUES ("Diskoskast", "length");
-    INSERT INTO disciplines (name, result_type) VALUES ("tre-spring", "length");
+    INSERT INTO disciplines (name, result_type) VALUES ("Tre-spring", "length");
 
 -- RESULTS
     INSERT INTO results (result_type, result_value, participant_id, discipline_id) VALUES ("time", "00.09.58", 1, 1);
