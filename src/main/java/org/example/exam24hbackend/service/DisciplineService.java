@@ -16,21 +16,31 @@ public class DisciplineService {
     @Autowired
     private DisciplineRepository disciplineRepository;
 
-    // Get all disciplines
+    //******* Get all disciplines *******\\
     public List<DisciplineDTO> getAllDisciplines() {
         return disciplineRepository.findAll()
                 .stream()
-                .map(this::convertToDTO)
+                .map(this::convertToDisciplineDTO)
                 .collect(Collectors.toList());
     }
 
-    // Convert entity to DTO
-    private DisciplineDTO convertToDTO(Discipline discipline) {
+    //******* Convert entity to DTO *******\\
+    public DisciplineDTO convertToDisciplineDTO(Discipline discipline) {
         DisciplineDTO dto = new DisciplineDTO();
         dto.setId(discipline.getId());
-        dto.setName(discipline.getName());
         dto.setResultType(discipline.getResultType());
+        dto.setName(discipline.getName());
+
         return dto;
     }
 
+    //******* Convert DTO to entity *******\\
+    public Discipline convertDisciplineDTOEntity(DisciplineDTO dto) {
+        Discipline discipline = new Discipline();
+        discipline.setId(dto.getId());
+        discipline.setName(dto.getName());
+        discipline.setResultType(dto.getResultType());
+        return discipline;
+    }
+    
 }
