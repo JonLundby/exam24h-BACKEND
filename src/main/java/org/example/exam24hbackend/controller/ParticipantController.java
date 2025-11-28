@@ -3,7 +3,6 @@ package org.example.exam24hbackend.controller;
 import org.example.exam24hbackend.dto.ParticipantDTO;
 import org.example.exam24hbackend.entity.Participant;
 import org.example.exam24hbackend.service.ParticipantService;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -15,8 +14,11 @@ import java.util.List;
 @RequestMapping("api/participants")
 public class ParticipantController {
 
-    @Autowired
-    ParticipantService participantService;
+    private final ParticipantService participantService;
+
+    public ParticipantController(ParticipantService participantService) {
+        this.participantService = participantService;
+    }
 
     //******* GET ALL PARTICIPANTS *******\\
     @GetMapping("")

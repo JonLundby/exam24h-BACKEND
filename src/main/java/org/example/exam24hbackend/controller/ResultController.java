@@ -3,7 +3,6 @@ package org.example.exam24hbackend.controller;
 import org.example.exam24hbackend.dto.ResultDTO;
 import org.example.exam24hbackend.entity.Result;
 import org.example.exam24hbackend.service.ResultService;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
@@ -14,8 +13,11 @@ import java.util.List;
 @RequestMapping("api/results")
 public class ResultController {
 
-    @Autowired
-    ResultService resultService;
+    private final ResultService resultService;
+
+    public ResultController(ResultService resultService) {
+        this.resultService = resultService;
+    }
 
     //******* GET ALL RESULTS *******\\
     @GetMapping("")
