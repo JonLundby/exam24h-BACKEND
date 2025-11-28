@@ -26,7 +26,7 @@ public class ParticipantController {
         return participantService.getAllParticipants();
     }
 
-    //******* GET SPECIFIC/ID PARTICIPANTS *******\\
+    //******* GET SPECIFIC/ID PARTICIPANT *******\\
     @GetMapping("/{id}")
     public ParticipantDTO getParticipantById(@PathVariable int id) {
         return participantService.getParticipantById(id);
@@ -47,7 +47,7 @@ public class ParticipantController {
 
     //******* DELETE PARTICIPANT *******\\
     @DeleteMapping("/{id}")
-    public ResponseEntity deleteParticipant(@PathVariable int id) {
+    public ResponseEntity<Void> deleteParticipant(@PathVariable int id) {
         return participantService.deleteParticipant(id);
     }
 

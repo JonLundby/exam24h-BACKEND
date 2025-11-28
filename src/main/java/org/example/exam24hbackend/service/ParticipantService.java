@@ -66,11 +66,11 @@ public class ParticipantService {
     }
 
     //******* DELETE PARTICIPANT *******\\
-    public ResponseEntity deleteParticipant(int id) {
+    public ResponseEntity<Void> deleteParticipant(int id) {
         Participant participantToDelete = participantRepository.findById(id).orElseThrow(() ->
                 new ResponseStatusException(HttpStatus.NOT_FOUND, "Participant not found!"));
         participantRepository.delete(participantToDelete);
-        return new ResponseEntity<>(HttpStatus.NO_CONTENT);
+        return new ResponseEntity<>(HttpStatus.ACCEPTED);
     }
 
 
